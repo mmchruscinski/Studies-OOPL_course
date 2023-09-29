@@ -15,7 +15,7 @@ private:
 
 public:
     RatNum() : m_n{0}, m_m{1} {}
-    RatNum(int n, int m) : m_n{n}, m_m{m} {assert(m != 0); }
+    RatNum(int n, int m) : m_n{n}, m_m{m} {} //assert(m != 0); }
 
     void show() { cout << m_n << "/" << m_m << endl; }
 
@@ -25,10 +25,15 @@ public:
     int getN() const { return m_n; }
     int getM() const { return m_m; }
 
-    void addition(RatNum& num) {
-        m_m = num.getM() * m_m;
+    void addition(RatNum num) {
         m_n = num.getN() * m_m + num.getM() * m_n;
+        m_m = num.getM() * m_m;
     }
+    void substraction(RatNum num) {
+        m_n = num.getM() * m_n - num.getN() * m_m;
+        m_m = num.getM() * m_m;
+    }
+
 
     friend void division(){}
     friend void multiplication(){}
@@ -42,7 +47,11 @@ int main(){
     RatNum n2(3, 4);
 
     n1.show();
-    //n2.show();
+    n2.show();
+
+    n1.substraction(n2);
+
+    n1.show();
 
 
     return 0;
