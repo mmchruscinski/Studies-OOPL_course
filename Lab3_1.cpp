@@ -25,15 +25,14 @@ public:
     int getN() const { return m_n; }
     int getM() const { return m_m; }
 
-    void addition(RatNum num) {
-        m_n = num.getN() * m_m + num.getM() * m_n;
-        m_m = num.getM() * m_m;
+    void addition(RatNum *num) {
+        m_n = num->getN() * m_m + num->getM() * m_n;
+        m_m = num->getM() * m_m;
     }
-    void substraction(RatNum num) {
-        m_n = num.getM() * m_n - num.getN() * m_m;
-        m_m = num.getM() * m_m;
+    void substraction(RatNum *num) {
+        m_n = num->getM() * m_n - num->getN() * m_m;
+        m_m = num->getM() * m_m;
     }
-
 
     friend void division(){}
     friend void multiplication(){}
@@ -49,7 +48,7 @@ int main(){
     n1.show();
     n2.show();
 
-    n1.substraction(n2);
+    n1.substraction(&n2);
 
     n1.show();
 
