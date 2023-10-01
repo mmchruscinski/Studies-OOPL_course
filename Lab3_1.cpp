@@ -34,8 +34,16 @@ public:
         m_m = num->getM() * m_m;
     }
 
-    friend void division(){}
-    friend void multiplication(){}
+    friend void multiplication(RatNum *n1, RatNum *n2){
+        n1->m_n = n1->m_n * n2->m_n;
+        n1->m_m = n1->m_m * n2->m_m;
+    }
+    friend void division(RatNum *divided, RatNum *divider){
+        const int temp = divider->m_m;
+        divider->m_m = divider->m_n;
+        divider->m_n = temp;
+        multiplication(divided, divider);
+    }
 
     ~RatNum(){}
 };
@@ -45,13 +53,10 @@ int main(){
     RatNum n1(1, 2);
     RatNum n2(3, 4);
 
+    division(&n1, &n2);
+
     n1.show();
     n2.show();
-
-    n1.substraction(&n2);
-
-    n1.show();
-
 
     return 0;
 }
