@@ -48,13 +48,7 @@ public:
 
 int main(){
 
-    RatNum n1(1, 2);
-    RatNum n2(3, 4);
 
-    division(&n1, &n2);
 
-    n1.show();
-    n2.show();
-
-    return 0;
 }
+
