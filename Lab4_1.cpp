@@ -23,32 +23,68 @@ public:
     int getN() const { return m_n; }
     int getM() const { return m_m; }
 
-    void addition(RatNum *num) {
-        m_n = num->getN() * m_m + num->getM() * m_n;
-        m_m = num->getM() * m_m;
-    }
-    void substraction(RatNum *num) {
-        m_n = num->getM() * m_n - num->getN() * m_m;
-        m_m = num->getM() * m_m;
-    }
-
-    friend void multiplication(RatNum *n1, RatNum *n2){
-        n1->m_n = n1->m_n * n2->m_n;
-        n1->m_m = n1->m_m * n2->m_m;
-    }
-    friend void division(RatNum *divided, RatNum *divider){
-        const int temp = divider->m_m;
-        divider->m_m = divider->m_n;
-        divider->m_n = temp;
-        multiplication(divided, divider);
-    }
+    friend RatNum operator* (const RatNum& n1, const RatNum& n2);
+    friend RatNum operator/ (const RatNum& n1, const RatNum& n2);
+    friend RatNum operator+ (const RatNum& n1, const RatNum& n2);
+    friend RatNum operator- (const RatNum& n1, const RatNum& n2);
+    friend ostream& operator<< (ostream& out, const RatNum& n);
+    friend istream& operator>> (istream& in, RatNum& n);
 
     ~RatNum(){}
 };
 
+RatNum operator* (const RatNum& n1, const RatNum& n2){
+    return RatNum(n1.m_n * n2.m_n, n1.m_m * n2.m_m);
+}
+RatNum operator/ (const RatNum& n1, const RatNum& n2){
+    return RatNum(n1.m_n * n2.m_m, n1.m_m * n2.m_n);
+}
+RatNum operator+ (const RatNum& n1, const RatNum& n2){
+    return RatNum(n1.m_m * n2.m_n + n2.m_m * n1.m_n, n1.m_m * n2.m_m);
+}
+RatNum operator- (const RatNum& n1, const RatNum& n2){
+    return RatNum(n2.m_m * n1.m_n - n1.m_m * n2.m_n, n1.m_m * n2.m_m);
+}
+ostream& operator<< (ostream& out, const RatNum& n) {
+    out << n.m_n << "/" << n.m_m;
+    return out;
+}
+istream& operator>> (istream& in, RatNum& n) {
+    in >> n.m_n;
+    in >> n.m_m;
+    return in;
+}
+
+
 int main(){
 
+    RatNum n1(1, 2);
+    RatNum n2(3, 4);
 
+    n1.show();
+    n2.show();
 
+    RatNum n3 = n1 * n2;
+
+    n3.show();
+
+    RatNum n4 = n1 / n2;
+
+    n4.show();
+
+    RatNum n5 = n1 + n2;
+    RatNum n6 = n1 - n2;
+
+    n5.show();
+    n6.show();
+
+    cout << n6;
+
+    cout << "Enter the rational number: ";
+    RatNum n7;
+    cin >> n7;
+    cout << "You entered: " << n7 << endl;
+
+    return 0;
 }
 
